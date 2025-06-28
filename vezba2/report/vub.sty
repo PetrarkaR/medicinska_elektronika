@@ -1,0 +1,145 @@
+\ProvidesPackage{vub}
+\RequirePackage{color}
+\RequirePackage{tikz}
+\RequirePackage{adjustbox}
+% Additionally, we use `geometry` to play with margins on the title page
+\RequirePackage{geometry}
+%\RequirePackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[serbian]{babel} % <--- Add this line
+
+
+\RequirePackage{kvoptions}
+\DeclareBoolOption[false]{spotcolors}
+\DeclareComplementaryOption{nospotcolors}{spotcolors}
+\ProcessKeyvalOptions*{}
+
+\ifvub@spotcolors
+\RequirePackage[spotcolors]{vubprivate}
+\else
+\RequirePackage{vubprivate}
+\fi
+
+\newcommand\@faculty{Set a faculty using \textbackslash faculty\{\textit{Engineering Sciences}\}}
+\newcommand\@subtitle{}
+
+\newcommand\pretitle[1]{%
+  \makeatletter%
+  \@ifundefined{@pretitle}{%
+  \newcommand\@pretitle{#1}%
+  }{%
+  \renewcommand\@pretitle{#1}%
+  }%
+  \makeatother%
+}
+
+\newcommand\promotors[1]{%
+  \makeatletter%
+  \@ifundefined{@promotors}{%
+  \newcommand\@promotors{#1}%
+  }{%
+  \renewcommand\@promotors{#1}%
+  }%
+  \makeatother%
+}
+
+\@ifundefined{faculty}{%
+    \newcommand{\faculty}[1]{%
+        \makeatletter%
+        \renewcommand\@faculty{#1}%
+        \makeatother%
+    }%
+}
+
+\@ifundefined{subtitle}{%
+    \newcommand{\subtitle}[1]{%
+        \makeatletter%
+        \renewcommand\@subtitle{#1}%
+        \makeatother%
+    }%
+}
+
+\renewcommand\and{\hskip 1em}
+\renewcommand\maketitle{
+\newgeometry{left=18mm,top=20mm,right=10mm}
+\begin{titlepage}
+    \begin{minipage}{\dimexpr\textwidth}
+      \raisebox{\dimexpr \triangleH-\height\relax}{\includegraphics[width=5.66cm]{images.png}}%
+      \hfill%
+      \vubtriangle
+    \end{minipage}
+
+    \vfill
+
+    \hspace{25mm}\begin{minipage}{\dimexpr\textwidth-58mm}
+        \ifdefined\@pretitle%
+            \vubfont\small\color{vuboranje}\@pretitle
+        \fi
+
+        \vubfontbf{\color{vubbleu}\flushleft{\Huge\expandafter\uppercase\expandafter{\@title}}}
+
+        \vspace{5mm}
+
+        {\color{vubbleu} \LARGE\vubfont\@subtitle}
+
+        \vspace{3cm}
+
+        \flushleft{\color{vuboranje} \large\vubfont\@author}
+
+        \vspace{5mm}
+        \flushleft{\color{vuboranje} \large\vubfont Profesor: Dr Borisav Jovanović}
+
+        \vspace{5mm}
+
+
+        {\color{vubbleu} \large\vubfont\@date}
+    \end{minipage}
+
+    \vfill
+
+    \hspace{25mm}\begin{minipage}{\dimexpr\textwidth-58mm}
+        \ifdefined\@promotors%
+          \begin{flushleft}
+            \vubfont{\color{vuboranje}\@promotors}
+          \end{flushleft}
+
+            \vspace{2mm}
+        \fi
+
+        \vubfontbf{\color{vubbleu}\fontsize{10pt}{10pt}\selectfont \@faculty}
+    \end{minipage}
+\end{titlepage}
+\restoregeometry
+}
+\newcommand{\zadatakTitle}[1]{
+    \newpage
+    \begin{center}
+        {\Huge Zadatak: #1}
+    \end{center}
+    \vspace{1cm}
+}
+
+\newcommand{\resenjeTitle}{
+    \newpage
+    \begin{center}
+        {\Huge Rešenje}
+    \end{center}
+    \vspace{1cm}
+}
+\newcommand{\kodTitle}{
+    \newpage
+    \begin{center}
+        {\Huge Kod}
+    \end{center}
+    \vspace{1cm}
+}
+\newcommand{\insertFigure}[3][0.8\textwidth]{
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=#1]{#2}
+        \caption{#3}
+    \end{figure}
+}
+\newcommand{\instructor}{Prof. Dr. Ime Prezime}
+
+\endinput

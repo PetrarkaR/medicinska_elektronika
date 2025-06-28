@@ -1,0 +1,135 @@
+\UseRawInputEncoding
+\documentclass[a4paper]{article}
+
+\usepackage{vub}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[serbian]{babel}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta, positioning}
+
+\lstdefinelanguage{VHDL}{
+    keywords={library, use, entity, is, port, in, out, std_logic_vector, std_logic, architecture, of, begin, end, process, if, then, elsif, else, signal, component, map, constant, wait, for},
+    sensitive=true,
+    morecomment=[l]--,
+    morestring=[b]",
+}
+
+\lstset{
+    language=VHDL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=10pt,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b,
+}
+
+\title{Analiza Biopotencijalnih Poja\v{c}ava\v{c}a}
+\subtitle{}
+\faculty{Elektronski fakultet u Ni\v{s}u}
+\author{Petar Risti\'{c}}
+\begin{document}
+\maketitle
+
+\newpage
+\zadatakTitle{Analiza biopotencijalnih poja\v{c}ava\v{c}a u AC i vremenskom domenu}
+
+\section*{Poja\v{c}ava\v{c} A -- AC analiza}
+\begin{itemize}
+  \item Simulacijom dobijeno poja\v{c}anje na srednjim frekvencijama iznosi $A_d = 54.6\,\text{dB}$.
+  \item Donja grani\v{c}na frekvencija poja\v{c}ava\v{c}a je $f_d = 48.5\,\text{mHz}$, a gornja je $f_g = 20.9\,\text{kHz}$.
+  \item Teoretski izra\v{c}unato poja\v{c}anje koristi formulu:
+    \[ A_d = \left(1 + \frac{2R_1}{R_g}\right)\left(\frac{R_3}{R_2}\right) \]
+  \item Kondenzatori $C_1$ i $C_2$ uti\v{c}u na donju grani\v{c}nu frekvenciju $f_d$, a ista se ra\v{c}una:
+    \[ f_c = \frac{1}{2\pi R_2 C} \]
+  \item Dobijene vrednosti iz simulacije i prora\v{c}una su u saglasnosti.
+\end{itemize}
+
+\insertFigure{ampAAC.png}{Simulacija AC analize kola A}
+\insertFigure{AMPASEMA.png}{Elektri\v{c}na \v{s}ema poja\v{c}ava\v{c}a A}
+
+\subsection*{CMRR analiza poja\v{c}ava\v{c}a A}
+\begin{itemize}
+  \item Maksimalni napon na izlazu: $V_{out} = 3.6\,\text{V}$.
+  \item Izmereno poja\v{c}anje smetnji: $A_s = \frac{V_{out}}{V_{in}} = 1.2$
+  \item Diferencijalno poja\v{c}anje: $A_d = 53.009\,\text{dB}$
+  \item Faktor potiskivanja zajedni\v{c}kog moda (CMRR):
+    \[ \text{CMRR}_{dB} = 20 \log_{10}\left(\frac{A_d}{A_s}\right) \]
+\end{itemize}
+
+\insertFigure{ampACMMR.png}{Simulacija tranzijentne analize kola A}
+\insertFigure{AMPACMMRSEMA.png}{\v{S}ema kola A sa smetnjama}
+
+\newpage
+\section*{Poja\v{c}ava\v{c} B -- AC analiza}
+\begin{itemize}
+  \item Simulacijom dobijeno poja\v{c}anje: $A_d = 55.8\,\text{dB}$.
+  \item Donja grani\v{c}na frekvencija: $f_d = 64.5\,\text{mHz}$, gornja: $f_g = 21.0\,\text{kHz}$.
+  \item Kori\v{s}\'cena je ista formula za $A_d$ kao kod poja\v{c}ava\v{c}a A.
+\end{itemize}
+\insertFigure{AMPBAC.png}{AC analiza poja\v{c}ava\v{c}a B}
+\insertFigure{AMPBSEMA.png}{Elektri\v{c}na \v{s}ema kola B}
+
+\subsection*{CMRR analiza poja\v{c}ava\v{c}a B}
+\begin{itemize}
+  \item Izlazna vrednost smetnji: $V_{amp} = 2.53\,\text{V}$
+  \item $A_s = 0.843$
+  \item Diferencijalno poja\v{c}anje: $A_d = 56.080\,\text{dB}$
+\end{itemize}
+\insertFigure{AMPBCMMR.png}{Tranzijentna analiza poja\v{c}ava\v{c}a B}
+\insertFigure{AMPBCMMRSEMA.png}{\v{S}ema sa smetnjama -- poja\v{c}a\v{c} B}
+
+\newpage
+\section*{Poja\v{c}ava\v{c} C -- AC i CMRR analiza}
+\begin{itemize}
+  \item Poja\v{c}anje: $A_d = 53.5\,\text{dB}$
+  \item CMRR: $52.3\,\text{dB}$
+  \item Smetnje: $V = 3.41\,\text{V}$, $A_s = 1.13$
+  \item Grani\v{c}ne frekvencije: $f_d = 8\,\text{mHz}$, $f_g = 31.3\,\text{kHz}$
+\end{itemize}
+\insertFigure{AMPCAC.png}{AC analiza poja\v{c}ava\v{c}a C}
+\insertFigure{AMPCSEMA.png}{\v{S}ema kola C}
+\insertFigure{AMPCCMMR.png}{Tranzijentna analiza poja\v{c}a\v{c}a C}
+\insertFigure{AMPCCMMRSEMA.png}{Sema sa smetnjama -- poja\v{c}a\v{c} C}
+
+\newpage
+\section*{Poja\v{c}ava\v{c} D -- AC i CMRR analiza}
+\begin{itemize}
+  \item Poja\v{c}anje: $A_d = 53.5\,\text{dB}$
+  \item CMRR: $53.915\,\text{dB}$
+  \item Smetnje: $V = 2.86\,\text{V}$, $A_s = 0.953$
+  \item Grani\v{c}ne frekvencije: $f_d = 80\,\text{mHz}$, $f_g = 64\,\text{kHz}$
+\end{itemize}
+\insertFigure{AMPDCMMR.png}{AC analiza poja\v{c}ava\v{c}a D}
+\insertFigure{AMPDCMMRSEMA.png}{\v{S}ema kola D}
+\insertFigure{AMPDCMMR.png}{Tranzijentna analiza D}
+\insertFigure{AMPDCMMRSEMA.png}{Sema sa smetnjama -- D}
+
+\newpage
+\section*{Uporedna tabela rezultata}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Poja\v{c}a\v{c} & $A_d$ [dB] & CMRR [dB] & $f_d$ [Hz] & $f_g$ [Hz] \\
+\hline
+A & 54.6 & 53.009 & 0.0485 & 20900 \\
+B & 55.8 & 56.080 & 0.0645 & 21000 \\
+C & 53.5 & 52.3   & 0.008  & 31300 \\
+D & 53.5 & 53.915 & 0.08   & 64000 \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
